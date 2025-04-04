@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HTshop.Models.GioHang>
+@using HTshop.common
+<style>
+    table.center {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        color: black;
+        table-layout: fixed;
+        border-collapse: collapse
+    }
+</style>
+<table class="table">
+    <tr class="text-center">
+        <th>STT</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Size</th>
+        <th style="width:100px;">Số lượng</th>
+        <th>Thành tiền</th>
+    </tr>
+    @if (Model != null)
+    {
+        var i = 0;
+        double tongtien = 0;
+        int tongSL = 0;
+        foreach (var item in Model)
+        {
+            tongtien += item.ThanhTien;
+            tongSL += item.iSoLuong;
+            <tr class="text-center" id="trow_@item.iMaSP">
+                <td>@(i+1)</td>
+                <td><img alt="@item.sTenSP" src="~/QuanAo/@item.sAnh" width="60" /></td>
+                <td>@item.sTenSP</td>
+                <td>@Common.FormatNumber(item.dGia, 0)</td>
+                <td>@item.Size</td>
+                <td>@item.iSoLuong</td>
+                <th>@Common.FormatNumber(item.ThanhTien, 2)</th>
+            </tr>
+            i++;
+        }
+        <tr style="color:red">
+            <th colspan="5" class="text-right">Tổng Số Lượng: </th>
+            <th class="text-center">@tongSL</th>
+        </tr>
+        <tr style="color:red">
+            <th colspan="5" class="text-right">Tổng: </th>
+            <th class="text-center">@Common.FormatNumber(tongtien, 0)</th>
+        </tr>
+    }
+</table>

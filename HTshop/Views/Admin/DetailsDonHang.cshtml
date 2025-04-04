@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HTshop.Models.CTDonHang>
+
+@{
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Chi Tiết Đơn Hàng</h2>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.SLuong)</th>
+                        <th>@Html.DisplayNameFor(model => model.Gia)</th>
+                        <th>@Html.DisplayNameFor(model => model.DONHANG.MaDH)</th>
+                        <th>@Html.DisplayNameFor(model => model.SANPHAM.TenSP)</th>
+                        <th>@Html.DisplayNameFor(model => model.Size)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.SLuong)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Gia)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DONHANG.MaDH)</td>
+                            <td>@Html.DisplayFor(modelItem => item.SANPHAM.TenSP)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Size)</td>
+                        </tr>
+                    }
+                    @Html.ActionLink("Trở lại", "DonHang", null, new { @class = "btn btn-secondary" })
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

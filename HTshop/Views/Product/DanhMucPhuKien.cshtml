@@ -1,0 +1,49 @@
+﻿@model IEnumerable<HTshop.Models.THELOAI>
+<style>
+    .dropdown-toggle::after {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        border: none;
+        content: "\f107";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        transition: .5s;
+    }
+    .dropdown-toggle[aria-expanded=true]::after {
+        transform: rotate(-180deg);
+    }
+    .dropdown-item {
+        padding-left: 25px;
+        border-radius: 0 30px 30px 0;
+    }
+</style>
+<div class="sidebar_section">
+    <div>
+        <div class="sidebar_title">
+            <h5>PHỤ KIỆN</h5>
+        </div>
+        <ul class="sidebar_categories">
+            @foreach (var item in Model)
+            {
+                if (@item.MaLoai == @ViewBag.id)
+                {
+                    <li class="active">
+                        <a href="@Url.Action("SPtheoLoai", "Product", new { id = item.MaLoai })">
+                            <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                            @item.TheLoai1
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("SPtheoLoai", "Product", new { id = item.MaLoai })">
+                            @item.TheLoai1
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

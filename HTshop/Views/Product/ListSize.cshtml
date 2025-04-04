@@ -1,0 +1,12 @@
+﻿@model IEnumerable<HTshop.Models.SIZE>
+<div class="product_color">
+    <span>Chọn Size:</span>
+    <select id="selectedSize" name="selectedSize">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Size1">@item.Size1</option>
+
+        }
+    </select>
+    <span style="font-size:10px; color:red">@ViewBag.Size</span>
+</div>

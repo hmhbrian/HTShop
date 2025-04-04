@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Giỏ hàng";
+
+    Layout = "~/Views/Shared/_LayoutPageTrangChu.cshtml";
+}
+<style>
+    table.center {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        color: black;
+        table-layout: fixed;
+        border-collapse: collapse
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/CSS/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/CSS/styles/categories_responsive.css">
+<h2 style="text-align:center; margin-top: 180px"> THÔNG TIN ĐƠN HÀNG</h2>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+            <!-- Sidebar -->
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-md-12" id="load_data">
+                    @Html.Action("Partial_Item_Payment", "GioHang")
+                </div>
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <a href="@Url.Action("GioHang","GioHang")" class="btn btn-success">Trở về giỏ hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div id="show_success"></div>
+        <div class="col-md-9">
+            @Html.Action("Partial_CheckOut", "GioHang")
+        </div>
+    </div>
+</div>

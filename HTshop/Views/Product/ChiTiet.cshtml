@@ -1,0 +1,216 @@
+﻿@model HTshop.Models.SANPHAM
+
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_LayoutPageDetail.cshtml";
+}
+
+<div class="container single_product_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                    <li><a href="@Url.Action("ChiTiet","Product")"><i class="fa fa-angle-right" aria-hidden="true"></i>Chi tiết</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="single_product_pics">
+                <div class="row">
+
+                    <div class="col-lg-9 image_col order-lg-2 order-1">
+                        <div class="single_product_image">
+                            <div class="single_product_image_background"><img src="~/QuanAo/@Model.HinhAnh" alt="@Model.HinhAnh" /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="product_details">
+                <div class="product_details_title">
+                    <h2>@Html.DisplayFor(model => model.TenSP)</h2>
+                </div>
+                <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                    <span class="ti-truck"></span><span>free delivery</span>
+                </div>
+                @if (Model.MaKM != null && Model.MaKM != 2)
+                {
+                    <div class="original_price">@String.Format("{0:#,##0}", Model.Gia) VND</div>
+                    <div class="product_price"> @String.Format("{0:#,##0}", ViewBag.GiaSauKhuyenMai) VND</div>
+                }
+                else
+                {
+                    <div class="product_price">@String.Format("{0:#,##0}", Model.Gia) VND</div>
+                }
+                <span id="quantityMessage" style="font-size:10px; color:red">@ViewBag.Size</span>
+                @if (Model.MaLoai != 21 && Model.MaLoai != 22 && Model.MaLoai != 23 && Model.MaLoai != 24 && Model.MaLoai != 25)
+                {
+                    @Html.Action("ListSize", "Product", new { sp = Model.MaSP })
+                }
+                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                    <span>Số Lượng:</span>
+                    <div class="quantity_selector">
+                        <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                        <span id="quantity_value">1</span>
+                        <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                    </div>
+                    <div style="background-color:black; color:aqua" class="red_button add_to_cart_button" onclick="addToCart(@Model.MaSP)">
+                        add to cart
+                    </div>
+                    <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Tabs -->
+
+<div class="tabs_section_container">
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="tabs_container">
+                    <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                        <li class="tab active" data-active-tab="tab_1"><span>Mô Tả</span></li>
+                        <li class="tab" data-active-tab="tab_3"><span>Đánh Giá </span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+
+                <!-- Tab Description -->
+
+                <div id="tab_1" class="tab_container active">
+                    <div class="row">
+                        <p> @Html.Raw(Model.Mota)</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Tab Additional Info -->
+            <!-- Tab Reviews -->
+
+            <div id="tab_3" class="tab_container">
+                <div class="row">
+
+                    <!-- User Reviews -->
+
+                    <div class="col-lg-6 reviews_col">
+                        @Html.Action("LoadReview", "RATING", new { ProductID = Model.MaSP })
+                    </div>
+                    <div class="col-lg-6 add_review_col">
+                        @{
+                            var user = (HTshop.Models.USER)HttpContext.Current.Session["TaikhoanUser"];
+                            if (user != null && @ViewBag.HasPurchased == true)
+                            {
+
+                                @Html.Action("Review", "RATING", new { ProductID = Model.MaSP })
+                            }
+                            else if (user == null)
+                            {
+                                <div class="col-lg-6 add_review_col">
+
+                                    <h3>Vui Lòng đăng nhập để đánh giá</h3>
+
+                                </div>
+
+                            }
+                            else
+                            {
+                                <h3>Vui Lòng mua hàng để đánh giá</h3>
+
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Benefit -->
+
+        <div class="benefit">
+            <div class="container">
+                <div class="row benefit_row">
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>free shipping</h6>
+                                <p>Suffered Alteration in Some Form</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>cach on delivery</h6>
+                                <p>The Internet Tend To Repeat</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>45 days return</h6>
+                                <p>Making it Look Like Readable</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6>opening all week</h6>
+                                <p>8AM - 09PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/single_custom.js"></script>
+<script>
+    function addToCart(id) {
+        var productid = id;
+        var selectedSize = $("#selectedSize").val();
+        var quantity = $("#quantity_value").text();
+        var currentUrl = window.location.href;
+
+        // Thực hiện kiểm tra số lượng sản phẩm theo size
+        $.ajax({
+            url: "@Url.Action("CheckProductQuantity", "Product")",
+            type: "POST",
+            data: { productId: productid, selectedSize: selectedSize, quantity: quantity },
+            success: function (result) {
+                if (result.success) {
+                    // Nếu số lượng hợp lệ, thực hiện thêm vào giỏ hàng
+                    var url = "@Url.Action("ThemGioHang", "Giohang")" + "?ms=" + productid + "&selectedSize=" + selectedSize + "&quantity=" + quantity + "&url=" + encodeURIComponent(currentUrl);
+                    window.location.href = url;
+                } else {
+                    // Nếu số lượng không hợp lệ, hiển thị thông báo lỗi
+                    $("#quantityMessage").text(result.message);
+                }
+            }
+        });
+    }
+</script>

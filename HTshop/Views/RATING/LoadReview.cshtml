@@ -1,0 +1,27 @@
+﻿
+@model IEnumerable<HTshop.Models.RATING>
+
+<div class="tab_title reviews_title">
+    <h4>Đánh Giá (@ViewBag.countReview)</h4>
+</div>
+
+<!-- User Review -->
+@foreach (var item in Model)
+{
+    <div class="user_review_container d-flex flex-column flex-sm-row">
+        <div class="user">
+            <div class="user_pic"> <img src="~/images/user.jpg"  style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden" /></div>
+            <div class="user_rating">
+                <ul class="star_rating">
+                    @Html.Raw(HTshop.common.Common.HtmlRate(item.rate))
+                </ul>
+            </div>
+        </div>
+        <div class="review">
+            <div class="review_date">@item.crdate</div>
+            <div class="user_name">@Html.DisplayFor(modelItem => item.hoten)</div>
+            <p>@item.noidung</p>
+        </div>
+    </div>
+}
+

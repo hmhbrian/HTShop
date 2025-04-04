@@ -1,0 +1,42 @@
+﻿@model IEnumerable<HTshop.Models.SANPHAM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageProduct.cshtml";
+}
+<style>
+    a:hover .product-item {
+        background-color: aliceblue;
+    }
+</style>
+<div class="product-grid">
+    @foreach (var sp in Model)
+    {
+        <a href="@Url.Action("ChiTiet", "Product", new {id=sp.MaSP})">
+            <div class="product-item men">
+                <div class="product discount product_filter">
+                    <div class="product_image">
+                        <img src="~/QuanAo/@sp.HinhAnh" alt="product image" height="219" width="218" />
+                    </div>
+                    <div class="favorite favorite_left"></div>
+                    @if (sp.MaKM != 2 && sp.MaKM != null)
+                    {
+                        <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+                            <span>@sp.GiaTriKhuyenMai</span>
+                        </div>
+                    }
+                    <div class="product_info">
+                        <h6 class="product_name">@sp.TenSP</h6>
+                        @if (sp.MaKM != 2 && sp.MaKM != null)
+                        {
+                            <div class="product_price">@String.Format("{0:#,##0}", sp.GiaSauKhuyenMai) VNĐ<span>@String.Format("{0:#,##0}", sp.Gia) VNĐ</span></div>
+                        }
+                        else
+                        {
+                            <div class="product_price">@String.Format("{0:#,##0}", sp.Gia) VNĐ<span></span></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </a>
+     }
+    </div>

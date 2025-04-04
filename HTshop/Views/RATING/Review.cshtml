@@ -1,0 +1,56 @@
+﻿@model HTshop.Models.RATING
+
+<div class="add_review">
+    @using (Ajax.BeginForm("PostReview", "RATING", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "load_Review",
+        OnSuccess = "OnSuccessRE",
+        OnFailure = "OnFailureRE",
+        OnBegin = "OnBeginRE"
+
+    }, new { @Id = "review_form" }))
+    {
+        <script>
+            function OnBeginRE() {
+                $('#review_submit').attr("disabled", "disable");
+                $('#load_send').html('<h2>đang gửi...</h2>');
+            }
+            function OnSuccessRE(res) {
+                if (res.Success) {
+                    $('#review_form')[0].reset();
+                }
+            }
+        </script>
+        @Html.AntiForgeryToken()
+
+        <div>
+            <h1>Thêm Đánh Giá</h1>
+        </div>
+        <div>
+            <h4>@ViewBag.TenD</h4>
+            @Html.HiddenFor(x => x.iduser, new { @Value = ViewBag.id })
+            @Html.HiddenFor(x => x.hoten, new { @Value = ViewBag.TenD })
+            @Html.HiddenFor(x => x.masp, new { @Value = ViewBag.productID })
+            <input type="text" id="txtrate" name="Rate" value="4" style="visibility : hidden" />
+            <h1>Your Rating:</h1>
+            <ul class="user_star_rating">
+                <li onclick="starClick(1)"><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li onclick="starClick(2)"><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li onclick="starClick(3)"><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li onclick="starClick(4)"><i class="fa fa-star" aria-hidden="true"></i></li>
+                <li onclick="starClick(5)"><i class="fa fa-star-o" aria-hidden="true"></i></li>
+            </ul>
+            @Html.TextAreaFor(x => x.noidung, new { @class = "input_review", @rows = "4", @placeholder = " your comment" })
+            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="Submit">submit</button>
+        </div>
+
+    }
+</div>
+<script>
+
+    function starClick(value) {
+        document.getElementById('txtrate').value = value;
+    }
+  
+</script>

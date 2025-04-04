@@ -1,0 +1,60 @@
+﻿@model HTshop.Models.RegisterViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đăng ký HTshop</title>
+    <link href="~/CSS/style1.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div>
+        <!-- Main Content -->
+        <div class="main">
+            <div class="main-w3l">
+                <h1 class="logo-w3">Đăng ký HTshop</h1>
+                <div class="w3layouts-main">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <input placeholder="Full Name" name="Name" type="text" value="">
+                        <!-- Tên tài khoản -->
+                        <input placeholder="User Name" name="username" type="text" required pattern="^[^0-9\W_][a-zA-Z0-9]{5,}" title="Tên tài khoản không được bắt đầu bằng kí tự đặt biệt hoặc số và có ít nhất 6 ký tự">
+                        <!-- Email, Số điện thoại, Mật khẩu -->
+                        <input placeholder="Email" name="Email" type="email" required="">
+                        <input placeholder="Phone Number" name="phone" type="text" required="">
+                        <!-- Mật khẩu -->
+                        <input placeholder="Password" name="Password" type="password" id="password1" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số">
+                        <!-- Xác nhận mật khẩu -->
+                        <input placeholder="Confirm Password" name="Confirm" type="password" id="password2" required>
+                        <i style="color:red">@ViewData["err4"]</i>
+                        <!-- Nút đăng ký -->
+                        <input type="submit" value="Đăng Kí" name="login">
+                    }
+                </div>
+                <!-- //main -->
+                <!-- password-script -->
+                <script>
+                    window.onload = function () {
+                        document.getElementById("password1").onchange = validatePassword;
+                        document.getElementById("password2").onchange = validatePassword;
+                    }
+                    function validatePassword() {
+                        var pass2 = document.getElementById("password2").value;
+                        var pass1 = document.getElementById("password1").value;
+                        if (pass1 != pass2)
+                            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+                        else
+                            document.getElementById("password2").setCustomValidity('');
+                        //empty string means no validation error
+                    }
+                </script>
+                <!-- //password-script -->
+            </div>
+        </div>
+        <!-- //Main Content -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<HTshop.Models.THELOAI>
+
+@{
+    ViewBag.Title = "TheLoai";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>Thể loại sản phẩm</h2>
+
+<p>
+    <a href="~/Admin/ThemTheLoai" class="btn btn-sm btn-primary">Thêm Mới</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TheLoai1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TheLoai1)
+        </td>
+        <td>
+            <a href="~/Admin/SuaTheLoai/@item.MaLoai" class="btn btn-sm btn-primary">sửa</a>
+            <a href="~/Admin/XoaTheLoai/@item.MaLoai" class="btn btn-sm btn-danger">Xóa</a>
+          
+        </td>
+    </tr>
+}
+
+</table>

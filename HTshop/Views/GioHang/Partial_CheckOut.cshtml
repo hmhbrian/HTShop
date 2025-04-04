@@ -1,0 +1,35 @@
+﻿@model HTshop.Others.OrderViewModel
+<h2 style="text-align:center; margin-top:20px">THÔNG TIN KHÁCH HÀNG</h2>
+@{
+    HTshop.Models.USER kh = (HTshop.Models.USER)Session["TaikhoanUser"];
+}
+@using (Html.BeginForm("DatHang", "GioHang", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label><i class="fa fa-user"></i>Họ tên khách hàng</label>
+        <input type="text" name="CustomerName" required class="form-control" value="@kh.Hoten" autocomplete="off" />
+    </div>
+    <div class="form-group">
+        <label><i class="fa fa-mobile-phone"></i>Số điện thoại</label>
+        <input type="text" name="Phone" class="form-control" value="@kh.SDT" autocomplete="off" />
+    </div>
+    <div class="form-group">
+        <label><i class="fa fa-address-card-o"></i>Địa chỉ</label>
+        <input type="text" name="Address" class="form-control" value="@kh.DiaChi" autocomplete="off" />
+    </div>
+    <div class="form-group">
+        <label><i class="fa fa-envelope"></i>Email</label>
+        <input type="text" name="Email" class="form-control" value="@kh.Email" autocomplete="off" />
+    </div>
+    <div class="form-group" id="load_form_payment" style="display:inline;">
+        <h4> <label>Chọn phương thức thanh toán:</label><br /></h4>
+        <label><input type="radio" name="TypePayment" value="1" /> Thanh toán Vnpay </label><br />
+        <label><input type="radio" name="TypePayment" value="2" /> Thanh toán Paypal</label><br />
+        <label><input type="radio" name="TypePayment" value="3" /> Thanh toán COD </label><br />
+    </div>
+    <div class="form-group" id="load_send"></div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-block btn-success" id="btnCheckOut">Đặt hàng</button>
+    </div>
+}

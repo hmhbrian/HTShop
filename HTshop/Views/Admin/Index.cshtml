@@ -1,0 +1,358 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+    .containn {
+        height: 1000px;
+    }
+
+    .table-responsive {
+        max-height: 250px; /* Đặt chiều cao tối đa cho table-responsive */
+        overflow-y: auto; /* Hiển thị thanh cuộn dọc khi nội dung vượt quá chiều cao */
+    }
+</style>
+<div class="containn">
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-line fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Doanh Thu Hôm Nay</p>
+                        <h6 class="mb-0">@String.Format("{0:#,##0}", ViewBag.totalSale) VND</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Đơn Hàng Hôm Nay</p>
+                        <h6 class="mb-0">@ViewBag.TotalOrders</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-area fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Tổng Đơn Hàng</p>
+                        <h6 class="mb-0">@ViewBag.tongDonHang2</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                    <div class="ms-3">
+                        <p class="mb-2">Tổng Doanh Thu</p>
+                        <h6 class="mb-0">@String.Format("{0:#,##0}", ViewBag.tongDoanhThu) VNĐ</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Doanh thu năm </h6>
+                        <div class="input-group" style="width:150px">
+                            <input type="text" class="form-control" id="selectedYear" style="max-width:80px" placeholder="Nhập tháng">
+                            <button class="btn btn-primary" id="btnTKnam">Lọc</button>
+                        </div>
+                        <a href="#chitietTK">Show Details</a>
+                    </div>
+                    <canvas id="worldwide-sales"></canvas>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Doanh thu tháng </h6>
+                        <div class="input-group" style="width:150px">
+                            <input type="number" class="form-control" id="selectedMonth" style="max-width:80px" placeholder="Nhập tháng">
+                            <button class="btn btn-primary" id="btnFilterTK">Lọc</button>
+                        </div>
+                        <a href="#chitietTK">Show Details</a>
+                    </div>
+                    <canvas id="salse-revenue"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Action("DonHangIndex", "Admin")
+    <div class="container-fluid pt-4 px-4" id="chitietTK">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Doanh thu trong năm <span id="selectedYearText"></span></h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tháng</th>
+                                    <th scope="col">Doanh thu</th>
+                                    <th scope="col">Lợi nhuận</th>
+                                </tr>
+                            </thead>
+                            <tbody id="load_data_nam"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Doanh thu tháng <span id="selectedMonthText"></span></h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Ngày</th>
+                                    <th scope="col">Doanh thu</th>
+                                    <th scope="col">Lợi nhuận</th>
+                                </tr>
+                            </thead>
+                            <tbody id="load_data_thang"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/lib/chart/chart.min.js"></script>
+    <script src="~/Content/lib/tempusdominus/js/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var arrDoanhThu = [];
+            var arrLoiNhuan = [];
+            var arrDate = [];
+            var currentChart;
+
+            function loadChart(month) {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                arrDoanhThu = [];
+                arrLoiNhuan = [];
+                arrDate = [];
+
+                $.ajax({
+                    url: '/Admin/TKDoanhThuThang',
+                    type: 'GET',
+                    data: { month: month },
+                    success: function (rs) {
+                        $.each(rs.Data, function (i, item) {
+                            var strDate = moment(item.Date).format('DD');
+                            arrDate.push(strDate);
+                            arrDoanhThu.push(item.DoanhThu);
+                            arrLoiNhuan.push(item.LoiNhuan);
+                        });
+
+                        var areaChartData = {
+                            labels: arrDate,
+                            datasets: [{
+                                label: "Doanh thu",
+                                data: arrDoanhThu,
+                                backgroundColor: "rgba(34, 177, 76, 0.5)",
+                                fill: true
+                            },
+                            {
+                                label: "Lợi nhuận",
+                                data: arrLoiNhuan,
+                                backgroundColor: "rgba(0, 155, 255, .3)",
+                                fill: true
+                            }]
+                        }
+
+                        var ctx2 = $("#salse-revenue").get(0).getContext("2d");
+                        var LineChartData = $.extend(true, {}, areaChartData)
+                        var temp0 = areaChartData.datasets[0]
+                        var temp1 = areaChartData.datasets[1]
+                        LineChartData.datasets[0] = temp1
+                        LineChartData.datasets[1] = temp0
+
+                        var barChartOptions = {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            scales: {
+                                y: {
+                                    min: 0,
+                                    ticks: {
+                                        stepSize: 5000000
+                                    }
+                                }
+                            },
+                            datasetFill: false,
+                            events: []
+                        };
+
+                        currentChart = new Chart(ctx2, {
+                            type: "line",
+                            data: LineChartData,
+                            options: {
+                                ...barChartOptions,
+                                onHover: null,
+                                plugins: {
+                                    tooltip: {
+                                        enabled: false
+                                    },
+                                    legend: {
+                                        display: true,
+                                    },
+                                },
+                            }
+                        });
+                        load_data_thang(rs.Data)
+                    }
+                });
+                $('#selectedMonthText').text(`${month}`);
+            }
+
+            var currentMonth = new Date().getMonth() + 1;
+            $('#selectedMonth').val(currentMonth);
+            loadChart(currentMonth);
+
+            $('#btnFilterTK').on('click', function () {
+                var selectedMonth = $('#selectedMonth').val();
+                loadChart(selectedMonth);
+            });
+        });
+        function load_data_thang(data) {
+            var strHtml = "";
+            $.each(data, function (i, item) {
+                var strDate = moment(item.Date).format('DD/MM');
+                strHtml += "<tr>";
+                strHtml += "<td>" + (i + 1) + "</td>";
+                strHtml += "<td>" + strDate + "</td>";
+                strHtml += "<td>" + formatCurrency(item.DoanhThu) + "</td>";
+                strHtml += "<td>" + formatCurrency(item.LoiNhuan) + "</td>";
+                strHtml += "</tr>";
+            });
+            $('#load_data_thang').html(strHtml);
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            var arrDoanhThu = [];
+            var arrLoiNhuan = [];
+            var arrDate = [];
+            var currentChart;
+
+            function loadChart(year) {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                arrDoanhThu = [];
+                arrLoiNhuan = [];
+                arrDate = [];
+
+                $.ajax({
+                    url: '/Admin/TKDoanhThuNam',
+                    type: 'GET',
+                    data: { year: year },
+                    success: function (rs) {
+                        $.each(rs.Data, function (i, item) {
+                            var strDate = item.Thang;
+                            arrDate.push(strDate);
+                            arrDoanhThu.push(item.DoanhThu);
+                            arrLoiNhuan.push(item.LoiNhuan);
+                        });
+
+                        var areaChartData = {
+                            labels: arrDate,
+                            datasets: [{
+                                label: "Doanh thu",
+                                data: arrDoanhThu,
+                                backgroundColor: "rgba(34, 177, 76, 0.5)",
+                                fill: true
+                            },
+                            {
+                                label: "Lợi nhuận",
+                                data: arrLoiNhuan,
+                                backgroundColor: "rgba(0, 155, 255, .3)",
+                                fill: true
+                            }]
+                        }
+
+                        var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
+                        var barChartData = $.extend(true, {}, areaChartData)
+                        var temp0 = areaChartData.datasets[0]
+                        var temp1 = areaChartData.datasets[1]
+                        barChartData.datasets[0] = temp1
+                        barChartData.datasets[1] = temp0
+                        var barChartOptions = {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            scales: {
+                                y: {
+                                    min: 0,
+                                    ticks: {
+                                        stepSize: 5000000
+                                    }
+                                }
+                            },
+                            datasetFill: false
+                        };
+
+                        currentChart = new Chart(ctx1, {
+                            type: "bar",
+                            data: barChartData,
+                            options: {
+                                ...barChartOptions,
+                                onHover: null,  // Tắt sự kiện hover mặc định
+                                plugins: {
+                                    tooltip: {
+                                        enabled: false
+                                    },
+                                    legend: {
+                                        display: true,
+                                    },
+                                }
+                            }
+                        });
+                        load_data_nam(rs.Data)
+                    }
+                });
+                $('#selectedYearText').text(`${year}`);
+            }
+
+            var currentYear = new Date().getFullYear();
+            $('#selectedYear').val(currentYear);
+            loadChart(currentYear);
+
+            $('#btnTKnam').on('click', function () {
+                var selectedYear = $('#selectedYear').val();
+                loadChart(selectedYear);
+            });
+        });
+        function formatCurrency(number) {
+            return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        }
+        function load_data_nam(data) {
+            var strHtml = "";
+            $.each(data, function (i, item) {
+                ;
+                strHtml += "<tr>";
+                strHtml += "<td>" + (i + 1) + "</td>";
+                strHtml += "<td>" + item.Thang + "</td>";
+                strHtml += "<td>" + formatCurrency(item.DoanhThu) + "</td>";
+                strHtml += "<td>" + formatCurrency(item.LoiNhuan) + "</td>";
+                strHtml += "</tr>";
+            });
+            $('#load_data_nam').html(strHtml);
+        }
+    </script>
+}

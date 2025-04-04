@@ -1,0 +1,48 @@
+﻿@model IEnumerable<HTshop.Models.CTDonHang>
+@{
+    ViewBag.Title = "DetailsDonHang";
+    Layout = "~/Views/Shared/_LayoutPageTrangChu.cshtml";
+}
+@{ 
+    var user = (HTshop.Models.USER)HttpContext.Current.Session["TaikhoanUser"];
+}
+<table class="table" style="margin-top:160px;width:80%;margin-left:auto;margin-right:auto ">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SANPHAM.TenSP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SANPHAM.TenSP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLuong)
+            </td>
+            <td>
+                @String.Format("{0:#,##0}", item.Gia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="4" style="text-align:left">@Html.ActionLink("Trở lại", "TinhTrangDH", new { userid = user.UserID }, new { @class = "btn btn-info btn-sm" })</td>
+    </tr>
+
+</table>
+
+

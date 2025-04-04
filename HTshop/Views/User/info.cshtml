@@ -1,0 +1,85 @@
+﻿@model HTshop.Models.USER
+
+@{
+    ViewBag.Title = "info";
+    Layout = "~/Views/Shared/_LayoutPageTrangChu.cshtml";
+}
+
+<style>
+    /* Add your custom styles here */
+    .info-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .info-header {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .info-details {
+        margin-top: 20px;
+    }
+
+    .btn-action {
+        margin-right: 10px;
+    }
+</style>
+
+<h2 class="info-header">User Information</h2>
+
+<div class="info-container">
+    <div class="info-details">
+        <h4>USER</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Hoten)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Hoten)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SDT)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Edit", "edit", new { id = Model.UserID }, new { @class = "btn btn-primary btn-action" }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

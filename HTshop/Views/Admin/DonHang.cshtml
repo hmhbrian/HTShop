@@ -1,0 +1,35 @@
+﻿@model IEnumerable<HTshop.Models.DONHANG>
+@{
+    ViewBag.Title = "DonHang";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NgayDat)</th>
+            <th>@Html.DisplayNameFor(model => model.NgayGiao)</th>
+            <th>@Html.DisplayNameFor(model => model.DaThanhToan)</th>
+            <th>@Html.DisplayNameFor(model => model.TinhTrang)</th>
+            <th>@Html.DisplayNameFor(model => model.USER.Hoten)</th>
+            <th>@Html.DisplayNameFor(model => model.TongTien)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NgayDat)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayGiao)</td>
+                <td>@Html.DisplayFor(modelItem => item.DaThanhToan)</td>
+                <td>@Html.DisplayFor(modelItem => item.TINHTRANG1.tinhtranggiaohang)</td>
+                <td>@Html.DisplayFor(modelItem => item.USER.Hoten)</td>
+                <td>@Html.DisplayFor(modelItem => item.TongTien)</td>
+                <td>
+                    @Html.ActionLink("Chi Tiết", "DetailsDonHang", new { id = item.MaDH }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Cập nhật", "SuaDonHang", new { id = item.MaDH }, new { @class = "btn btn-info btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

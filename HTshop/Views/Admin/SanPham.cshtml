@@ -1,0 +1,89 @@
+﻿@using HTshop.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<HTshop.Models.SANPHAM>
+
+@{
+    ViewBag.Title = "SanPham";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+        .pagination a {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #333;
+        }
+
+            .pagination a:hover {
+                background-color: black;
+                color: white;
+            }
+</style>
+<h2>Quản lý Sản Phẩm</h2>
+
+<div class="d-flex justify-content-between">
+    <p>
+        <a href="~/Admin/ThemSP/" class="btn btn-success">Thêm Mới Sản Phẩm</a>
+    </p>
+
+    <div class="text-center">
+        Trang <span style="color:red">@(Model.PageCount<Model.PageNumber?0:Model.PageNumber)</span>/@Model.PageCount
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().TenSP)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Gia)</th>
+            <th>@Html.DisplayNameFor(model => model.First().HinhAnh)</th>
+            <th>@Html.DisplayNameFor(model => model.First().NgayCapNhat)</th>
+            <th>@Html.DisplayNameFor(model => model.First().KHUYENMAI.TenKM)</th>
+            <th>@Html.DisplayNameFor(model => model.First().THELOAI.TheLoai1)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.TenSP)</td>
+                <td>@String.Format("{0:#,##0}", item.Gia)</td>
+                <td>
+                    <img src="@Url.Content("~/QuanAo/" + item.HinhAnh)" style="width: 150px; height: 150px;" />
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.NgayCapNhat)</td>
+                <td>@Html.DisplayFor(modelItem => item.KHUYENMAI.TenKM)</td>
+                <td>@Html.DisplayFor(modelItem => item.THELOAI.TheLoai1)</td>
+                <td>
+                    <a href="~/Admin/SuaSP/@item.MaSP" class="btn btn-primary btn-sm">Sửa</a>
+                    <a href="~/Admin/Details/@item.MaSP" class="btn btn-success btn-sm">Chi Tiết</a>
+                    <a href="~/Admin/XoaSP/@item.MaSP" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Thêm phân trang vào -->
+<br />
+<div style="text-align:center">Trang<span style="color:red">@(Model.PageCount<Model.PageNumber?0:Model.PageNumber)</span>/@Model.PageCount</div>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page }))
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>
+
+<!-- Kết thúc -->

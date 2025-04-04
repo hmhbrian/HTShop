@@ -1,0 +1,39 @@
+﻿@model IEnumerable < HTshop.Models.DONHANG>
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Đơn hàng mới</h6>
+            <a href="@Url.Action("DonHang","Admin")">Show All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">@Html.DisplayNameFor(model => model.NgayDat)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.NgayGiao)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.USER.Hoten)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.TongTien)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.DaThanhToan)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.TINHTRANG1.tinhtranggiaohang)</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.NgayDat)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NgayGiao)</td>
+                            <td>@Html.DisplayFor(modelItem => item.USER.Hoten)</td>
+                            <td>@String.Format("{0:#,##0}",item.TongTien)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DaThanhToan)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TINHTRANG1.tinhtranggiaohang)</td>
+                            <td><a class="btn btn-sm btn-primary" href="@Url.Action( "DetailsDonHang", new { id = item.MaDH })">Detail</a></td>
+                        </tr>
+                    }
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

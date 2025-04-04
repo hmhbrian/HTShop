@@ -1,0 +1,113 @@
+﻿@model HTshop.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    h2 {
+        color: #009CFF;
+    }
+
+    h4 {
+        color: #333;
+    }
+
+    .dl-horizontal dt {
+        width: 150px;
+        font-weight: bold;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 160px;
+        margin-bottom: 10px;
+    }
+
+    img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    p {
+        margin-top: 20px;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+</style>
+
+<h2>Thông Tin</h2>
+
+<div>
+    <h4>Sản Phẩm</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mota)
+        </dt>
+        <dd>
+            @Html.Raw(Model.Mota)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HinhAnh)
+        </dt>
+        <dd>
+            <img src="~/QuanAo/@Model.HinhAnh" style="width: 150px; height: 150px;" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayCapNhat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NgayCapNhat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KHUYENMAI.Mota)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KHUYENMAI.Mota)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THELOAI.TheLoai1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.THELOAI.TheLoai1)
+        </dd>
+    </dl>
+</div>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("SuaSP", new { id = Model.MaSP })">Sửa</a>
+    <a class="btn btn-secondary" href="@Url.Action("SanPham")">Quay trở lại danh sách</a>
+</p>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+}

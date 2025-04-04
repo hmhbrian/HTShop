@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "PaymentConfirm";
+    Layout = "~/Views/Shared/_LayoutPageTrangChu.cshtml";
+}
+<h2 style="margin-top:200px">@ViewBag.Message</h2>
+<style>
+    table.center {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        color: black;
+        table-layout: fixed;
+        border-collapse: collapse
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/CSS/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/CSS/styles/categories_responsive.css">
+<h3 style="text-align:center; margin-top: 180px"> Chúc Bạn Mua Sắm Vui Vẻ</h3>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+            <!-- Sidebar -->
+            <!-- Main Content -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <a href="@Url.Action("Index","Home")" class="btn btn-success">Tiếp tục mua sắm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

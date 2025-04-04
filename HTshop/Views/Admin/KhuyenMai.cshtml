@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HTshop.Models.KHUYENMAI>
+
+@{
+    ViewBag.Title = "KhuyenMai";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>Danh sách thông tin khuyến mãi</h2>
+
+<p>
+    <a href="~/Admin/ThemKhuyenMai" class="btn btn-sm btn-primary">Thêm Mới</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Mota)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaTriKM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayBD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayKT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenKM)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mota)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GiaTriKM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayBD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayKT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenKM)
+        </td>
+        <td>
+            <a href="~/Admin/SuaKhuyenMai/@item.MaKM" class="btn btn-sm btn-primary">sửa</a>
+            <a href="~/Admin/XoaKhuyenMai/@item.MaKM" class="btn btn-sm btn-danger">Xóa</a>
+           
+        </td>
+    </tr>
+}
+
+</table>

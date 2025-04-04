@@ -1,0 +1,40 @@
+﻿@model IEnumerable<HTshop.Models.RATING>
+
+@{
+    ViewBag.Title = "Xem Bình Luận";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Xem Bình Luận</h2>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.rate)</th>
+                <th>@Html.DisplayNameFor(model => model.crdate)</th>
+                <th>@Html.DisplayNameFor(model => model.noidung)</th>
+                <th>@Html.DisplayNameFor(model => model.hoten)</th>
+                <th>@Html.DisplayNameFor(model => model.SANPHAM.TenSP)</th>
+                <th>@Html.DisplayNameFor(model => model.USER.Hoten)</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.rate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.crdate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.noidung)</td>
+                    <td>@Html.DisplayFor(modelItem => item.hoten)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SANPHAM.TenSP)</td>
+                    <td>@Html.DisplayFor(modelItem => item.USER.Hoten)</td>
+                    <td>
+                        @Html.ActionLink("Xóa", "XoaBL", new { id = item.id }, new { @class = "btn btn-danger", onclick = "return confirm('Bạn có chắc muốn xóa bình luận này không?');" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

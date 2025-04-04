@@ -1,0 +1,73 @@
+﻿@model HTshop.Models.RATING
+
+@{
+    ViewBag.Title = "XoaBL";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>XoaBL</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>RATING</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.crdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.crdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.noidung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.noidung)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hoten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hoten)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SANPHAM.TenSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SANPHAM.TenSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USER.Hoten)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USER.Hoten)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "binhluan")
+        </div>
+    }
+</div>
